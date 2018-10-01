@@ -8,14 +8,14 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+x <- read.csv("polls_IT-parliament_2018-10-01.csv")
 ```
 
 ```{r}
-raw <- read.csv("polls_IT-parliament_2018-10-01.csv")
+x %>% 
+  select(date, firm, n, LN, M5S) %>% 
+  gather(key = "party" , value = "poll", LN, M5S) %>% 
+  ggplot(aes(x = date, y = poll, color = party)) + geom_point()
 ```
 
-```{r}
-raw %>% 
-ggplot(aes(x = date, y = LN, color = "red")) + geom_point() + geom_point(aes(x = date, y = MSS, color = "blue"))
-```
 
